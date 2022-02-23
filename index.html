@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="jp">
+<head>
+  Lead Write!
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/abcjs/3.1.0/abcjs_basic-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/abcjs/3.1.1/abcjs_editor-min.js"></script>
+
+  <script src="script.js",type="module"></script>
+</head>
+
+<body>
+  <!--<button type="button" class="dmyBtn">push</button>-->
+  <p>お手本</p>
+  <div id="target"></div>
+  <p>打つキー</p>
+  <div id="target_input">a</div>
+  <p>入力</p>
+  <div id="hypo"></div>
+  <textarea id="textarea" tabindex="0" style="visibility: hidden" disabled>z8|z8|z8|z8||</textarea> <!--style="visibility: hidden;"-->
+  <div id="container"></div>
+  <div id = "timer"></div>
+
+  <div>
+    更新履歴
+    <p>2022/02/dd v1.0公開</p>
+  </div>
+  <div>
+    既知の不具合
+    <p>・特定の譜面において正しく次に入力すべき文字がハイライトされない</p>
+    <p>・音符を入力した際の音が鳴らなくなる</p>
+  </div>
+
+  <button id="open-btn" class="overlay-event" type=button style="visibility: hidden">Click</button>
+
+<div id="overlay" class="overlay-event">
+  <div class="flex">
+    <div id="overlay-inner">
+      <p>完了！</p>
+      <div id="resultText">null</div>
+
+      <div id="tw_container"></div>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      <!--<a id="twitter-button" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="test before modify">Tweet</a> -->
+
+      <button id="close-btn" class="overlay-event" type=button>Close</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+
+</html>
