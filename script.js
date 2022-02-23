@@ -139,9 +139,7 @@ function gameInit(){
     tmpClear = 0;
     firstInput = true;
     goodInput = 0;
-    badInput = 0;
-    alert("game inti");
-    
+    badInput = 0;  
 }
 function timerStart(){
     starttime = performance.now();
@@ -182,6 +180,41 @@ function calcExpr(bpm){
     }
         
 }
+function calcRate(acc,bpm){
+    if(acc >= 100){
+        if(bpm>90){
+            return "SSS";
+        }else if(bpm>60){
+            return "SS";
+        }else{
+            return "S";
+        }
+    }else if(acc > 95){
+        if(bpm>90){
+            return "S";
+        }else if(bpm>60){
+            return "A";
+        }else{
+            return "B";
+        }
+    }else if(acc>80){
+        if(bpm>90){
+            return "A";
+        }else if(bpm>60){
+            return "B";
+        }else{
+            return "C";
+        }
+    }else{
+        if(bpm>90){
+            return "B";
+        }else if(bpm>60){
+            return "C";
+        }else{
+            return "D";
+        }
+    }
+}
 
 function calcRank(){
     //https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/guides/parameter-reference1
@@ -191,11 +224,13 @@ function calcRank(){
     //Remove existing share button, if it exists.
     var myNode = document.getElementById('tw_container');
     while (myNode.firstChild) {
+    //if(myNode.firstChild){
         myNode.removeChild(myNode.firstChild);
     }
+    //}
     
     twttr.widgets.createShareButton( 
-        'https://dev.twitter.com/',
+        'https://hatakekazu.github.io/LeadWrite/',
         document.getElementById('tw_container'),
         {
             text: 'LeadWrite!!でBPM'+bpm+"の記譜力を発揮！"+expr +"!"
@@ -205,8 +240,8 @@ function calcRank(){
     
     acc = goodInput / (goodInput + badInput);
     acc = parseInt(acc * 10000,10)/ 100; 
-    rank = "S";
-    document.getElementById('resultText').innerHTML = rank + "ランク！\n正解率="+acc+"% (誤入力 "+badInput + " / "+(goodInput+badInput) +")\n"+bpm + ":" + expr;
+    rank = calcRate(acc,bpm);
+    document.getElementById('resultText').innerHTML = rank + "ランク！<br>正解率="+acc+"% (誤入力 "+badInput + " / "+(goodInput+badInput) +")<br>"+bpm + ":" + expr;
     
     const overlay = document.getElementById('overlay');
     function overlayToggle() {
