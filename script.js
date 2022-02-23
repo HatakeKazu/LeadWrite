@@ -4,7 +4,10 @@ const abcjs = window.ABCJS;
 var keyInputs = "";
 var TargetLead = "";
 var starttime = -1;
-
+var firstctx_key = true;
+var firstctx_se = true;
+var ctx_key = null;
+var ctx_se = null;
 /*楽譜処理関連*/
 var abc_suffix = "X:1\nK:C\nL:1/16\n|";
 var lenElem = 16; //16,8,4 基本単位
@@ -100,6 +103,7 @@ document.body.addEventListener('keypress',
         if(firstInput){
             timerStart();
             firstInput = false;
+            ctx = new AudioContext();
         }
         
         //abc版のモードに反映
@@ -241,7 +245,7 @@ function calcRank(){
     acc = goodInput / (goodInput + badInput);
     acc = parseInt(acc * 10000,10)/ 100; 
     rank = calcRate(acc,bpm);
-    document.getElementById('resultText').innerHTML = rank + "ランク！<br>正解率="+acc+"% (誤入力 "+badInput + " / "+(goodInput+badInput) +")<br>"+bpm + ":" + expr;
+    document.getElementById('resultText').innerHTML = rank + "ランク！<br>正解率="+acc+"% (誤入力 "+badInput + " / "+(goodInput+badInput) +")<br>BPM:"+bpm + ":" + expr;
     
     const overlay = document.getElementById('overlay');
     function overlayToggle() {
@@ -498,65 +502,78 @@ function sleep(waitSec, callbackFunc) {
 
 }
 
+function getCtx(){
+    if(firstctx_key){
+        ctx_key = new AudioContext();
+        firstctx_key = false;
+    }
+    if(firstctx_se){
+        ctx_se = new AudioContext();
+        firstctx_se = false;
+    }
+}
+
 function playToneSound(tone){
     var baseFreq = 220 * Math.pow(2,3/12);
+    getCtx();
     if(tone=="c"){
-        playOneshot(baseFreq * Math.pow(2,octState));
+        playOneshot(baseFreq * Math.pow(2,octState),ctx);
     }else if(tone=="d"){
-        playOneshot((baseFreq* Math.pow(2,2/12)) * Math.pow(2,octState));
+        playOneshot((baseFreq* Math.pow(2,2/12)) * Math.pow(2,octState),ctx);
     }else if(tone=="e"){
-        playOneshot((baseFreq* Math.pow(2,4/12)) * Math.pow(2,octState));
+        playOneshot((baseFreq* Math.pow(2,4/12)) * Math.pow(2,octState),ctx);
     }else if(tone=="f"){
-        playOneshot((baseFreq* Math.pow(2,5/12)) * Math.pow(2,octState));
+        playOneshot((baseFreq* Math.pow(2,5/12)) * Math.pow(2,octState),ctx);
     }else if(tone=="g"){
-        playOneshot((baseFreq* Math.pow(2,7/12)) * Math.pow(2,octState));
+        playOneshot((baseFreq* Math.pow(2,7/12)) * Math.pow(2,octState),ctx);
     }else if(tone=="a"){
-        playOneshot((baseFreq* Math.pow(2,9/12)) * Math.pow(2,octState));
+        playOneshot((baseFreq* Math.pow(2,9/12)) * Math.pow(2,octState),ctx);
     }else if(tone=="b"){
-        playOneshot((baseFreq* Math.pow(2,11/12)) * Math.pow(2,octState));
+        playOneshot((baseFreq* Math.pow(2,11/12)) * Math.pow(2,octState),ctx);
     }
 }
 
 
-function playOneshot(freq){
+function playOneshot(freq,_ctx){
+
     sec = 0.1;
-    const ctx = new AudioContext();
-    const osc = ctx.createOscillator();
+    
+    const osc = ctx_key.createOscillator();
     osc.frequency.value = freq;
-    const gainNode = ctx.createGain();
+    const gainNode = ctx_key.createGain();
     osc.type = "square";
     osc.connect(gainNode);
     gainNode.gain.value = 0.1;
-    gainNode.connect(ctx.destination);
-    osc.start();
-    osc.stop(sec);
+    gainNode.connect(ctx_key.destination);
+    osc.start(0);
+    osc.stop(ctx_key.currentTime + sec);
 }
 
 function sound(type) {
     //type: correct or ng
     if(type == "correct"){
         sec = 0.1;
-        const ctx = new AudioContext();
-        const osc = ctx.createOscillator();
+        
+        const osc = ctx_se.createOscillator();
         osc.frequency.value = 440*Math.pow(2,1/12);
-        const gainNode = ctx.createGain();
+        const gainNode = ctx_se.createGain();
         osc.type = "triangle";
         osc.connect(gainNode);
         gainNode.gain.value = 0.1;
-        gainNode.connect(ctx.destination);
-        osc.start();
-        osc.stop(sec);
+        gainNode.connect(ctx_se.destination);
+        osc.start(0);
+        osc.stop(ctx_se.currentTime + sec);
 
-        const ctx2 = new AudioContext();
-        const osc2 = ctx2.createOscillator();
+        
+        const osc2 = ctx_se.createOscillator();
         osc2.frequency.value = 220 * Math.pow(2,10/12);
-        const gainNode2 = ctx2.createGain();
+        const gainNode2 = ctx_se.createGain();
         osc2.type = "sine";
         osc2.connect(gainNode2);
         gainNode2.gain.value = 0.1;
-        gainNode2.connect(ctx2.destination);
-        osc2.start(sec);
-        osc2.stop(sec + sec);
+        gainNode2.connect(ctx_se.destination);
+        osc2.start(ctx_se.currentTime + sec);
+        osc2.stop(ctx_se.currentTime + sec + sec);
     }
     
 
