@@ -168,15 +168,25 @@ function calcBPM(){
 
 function calcExpr(bpm){
     if(bpm<30){
-        return "記譜ビギナー";
+        return "書け出しライター";
+    }else if(bpm<40){
+        return "指が慣れてきた";
     }else if(bpm<50){
         return "英語式音階の使い手";
+    }else if(bpm<60){
+        return "採譜完全に理解した";
     }else if(bpm<70){
         return "バラードの申し子";
+    }else if(bpm<80){
+        return "業務で使えるレベル";
     }else if(bpm<90){
         return "実時間を超越するポテンシャル";
+    }else if(bpm<100){
+        return "歴戦の譜面起こしニスト";
     }else if(bpm<110){
         return "高鳴る心臓の鼓動";
+    }else if(bpm<120){
+        return "音を置き去りにした";
     }else if(bpm<130){
         return "バケモノだ！";
     }else{
@@ -245,7 +255,7 @@ function calcRank(){
     acc = goodInput / (goodInput + badInput);
     acc = parseInt(acc * 10000,10)/ 100; 
     rank = calcRate(acc,bpm);
-    document.getElementById('resultText').innerHTML = rank + "ランク！<br>正解率="+acc+"% (誤入力 "+badInput + " / "+(goodInput+badInput) +")<br>BPM:"+bpm + ":" + expr;
+    document.getElementById('resultText').innerHTML = rank + "ランク！<br>正解率="+acc+"% (誤入力 "+badInput + " / "+(goodInput+badInput) +")<br>"+bpm +"BPM: " + expr;
     
     const overlay = document.getElementById('overlay');
     function overlayToggle() {

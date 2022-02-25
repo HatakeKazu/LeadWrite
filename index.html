@@ -2,13 +2,13 @@
 
 <html lang="jp">
 <head>
-  Lead Write!
+  <title>Lead Write!</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/abcjs/3.1.0/abcjs_basic-min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/abcjs/3.1.1/abcjs_editor-min.js"></script>
 
-  <script src="script.js",type="module"></script>
+  
 
   
   <meta name="twitter:site" content="@remopro" />
@@ -17,38 +17,52 @@
   <!-- 対象ページの概要を設定します -->
   <meta name="twitter:description" content="素早く正確な記譜力を測るタイピングゲーム" />
   <!-- サムネイル画像のURLを指定します -->
-  <meta name="twitter:image" content="images/toon.jpg" />
+  <!--<meta name="twitter:image" content="images/toon.jpg" />-->
   <!-- サムネイルを小さく表示する場合はSummary Cardを指定します -->
 
 </head>
 
 <body>
+  
+  <h1>Lead Write!!</h1>
+  <p>お手本の楽譜を手早く打ち込むタイピングゲーム<br>※最初のキーを打ち込んだ時から内部的な時間計測がスタートします</p>
   <!--<button type="button" class="dmyBtn">push</button>-->
-  <p>お手本</p>
+  <div id="game">
+  <h3>お手本</h3>
   <div id="target"></div>
-  <p>打つキー</p>
-  <div id="target_input">a</div>
-  <p>入力</p>
+  
+  <h3>あなたの譜面</h3>
   <div id="hypo"></div>
+
+  <h3>打つキー</h3>
+  <div id="target_input">a</div>
   <textarea id="textarea" tabindex="0" style="visibility: hidden" disabled>z8|z8|z8|z8||</textarea> <!--style="visibility: hidden;"-->
   <div id="container"></div>
   <div id = "timer"></div>
 
-  <div>
-    更新履歴
+</div>
+  <h2>説明</h3>
+    <p>お題で示された楽譜をMuseScore形式の音符入力で素早く正確に書き起こそう！</p>
+    <p>ラ、シ、ド、レ、ミ、ファ、ソとa,b,c,d,e,f,gが対応しているよ</p>
+    <p>休符は数字の0だ！</p>
+    <p>音の長さをまず指定(3:１６分音符,4:８分音符,5:４分音符・・・）して、それからa~gや0で音符を打とう<br>連続して同じ音の長さなら長さ指定はやり直さなくて大丈夫</p>
+    
+  
+
+  <h2>更新履歴</h2>
     <p>2022/02/dd v1.0公開</p>
-  </div>
-  <div>
-    既知の不具合
+  
+  
+  <h2>既知の不具合</h2>
     <p>・特定の譜面において正しく次に入力すべき文字がハイライトされない</p>
-  </div>
+    <p>・高速に入力した際に正しく音が再生されなくなる</p>
 
   <button id="open-btn" class="overlay-event" type=button style="visibility: hidden">Click</button>
 
 <div id="overlay" class="overlay-event">
   <div class="flex">
     <div id="overlay-inner">
-      <p>完了！</p>
+      <h3>完了！</h3>
       <div id="resultText">null</div>
 
       <div id="tw_container"></div>
@@ -61,6 +75,7 @@
 </div>
 
 
-</body>
 
+</body>
+<script src="script.js",type="module"></script>
 </html>

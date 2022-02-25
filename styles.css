@@ -1,11 +1,31 @@
 body {
     background-color: #66c7ff;
+    
   }
 
 span {
   color: red;
 }
 
+h1{
+  text-align: center;
+}
+h2{
+  text-align: center;
+}
+
+
+p{
+  text-align: center;
+}
+#game{
+  background: #ffffff;
+  width: 90%;
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #cccccc;
+  margin: 30px auto;
+}
 
 #overlay{
   position: fixed;
