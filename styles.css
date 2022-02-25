@@ -18,6 +18,14 @@ h2{
 p{
   text-align: center;
 }
+#desc{
+  /*background: #ffffff;*/
+  width: 60%;
+  padding: 10px;
+  text-align: left;
+  /*border: 1px solid #cccccc;*/
+  margin: 30px auto;
+}
 #game{
   background: #ffffff;
   width: 90%;
@@ -25,6 +33,10 @@ p{
   text-align: left;
   border: 1px solid #cccccc;
   margin: 30px auto;
+}
+
+#update{
+  text-align: center;
 }
 
 #overlay{

@@ -22,7 +22,7 @@ var octState = 0; //-1 means オク下 1 meansオク上
 
 /*スコア関連*/
 var score=-1;
-var CLEAR_N = 3;
+
 var tmpClear = 0;
 var TIMELIMIT = 60; //sec
 var goodInput = 0;
@@ -38,9 +38,11 @@ var targets = [
     "a,4c4d4c2d2|e4g,4a,4a,2g,2|a,4c4d4c2d2|e8d8",
     "c4f4e4f4|g4d4g4z4|f4e4d4e4|f8c4z4",
     "c4d4e4f4|e4d4c4z4|e4f4g4a4|g4f4e8",
-    "c2g,2c2e2d4b,4|c4b,2a,2g,4g,4|a,4g,2f,2g,4c4|a,2c4e2d8"
+    "c2g,2c2e2d4b,4|c4b,2a,2g,4g,4|a,4g,2f,2g,4c4|a,2c4e2d8",
+    "f4d2c2f4d2c2|z2a4g2 f2f2g4|f4d2c2f4d2c2|z2c2a2g2 f2f1f1g4",
+    "d4d2a2 g2a1g1 f2c2|d4d2a2 g2a1g1 f2g2|e4c4c4a,2c2|f2e2d2c2a,4"
 ]
-
+var CLEAR_N = 3;
 var targets_indx = [];
 
 window.onload = function() {
@@ -341,7 +343,7 @@ function abc2msc(seq){//g2a2 → 5ga
     let lastLengType = "4"; // 3=16分音符 4 = 8分音符 , 5=４分音符 6 = ２分音符 ,7 = 全音符
     let nowLengType = "";
     let tone = ['a','b','c','d','e','f','g'];
-    let sptk = ["|","'",",","\n"]//special token
+    let sptk = ["|","'",","," ","\n"]//special token
     let lenMin = 1;
     let lenMax = 8;
     let tmpTone = "";
