@@ -32,16 +32,23 @@ var isTimerActive = false;
 var firstInput = true;
 /* data */
 var targets = [
-    "c4c4g4g4|a4a4g8|f4f4e4e4|d4d4c4z4",
-    "c2d2e2d2c4g,4|c2d2e2d2c8|c2d2e2f2g4a4|g2f2e2d2c8",
-    "d4c4d4e4|g4e4d8|e4g4a4g2a2|d'4b4a4g4",
-    "a,4c4d4c2d2|e4g,4a,4a,2g,2|a,4c4d4c2d2|e8d8",
-    "c4f4e4f4|g4d4g4z4|f4e4d4e4|f8c4z4",
-    "c4d4e4f4|e4d4c4z4|e4f4g4a4|g4f4e8",
+    "c,4c,4g,4g,4|a,4a,4g,8|f,4f,4e,4e,4|d,4d,4c,4z4",
+    "c,2d,2e,2d,2c,4g,,4|c,2d,2e,2d,2c,8|c,2d,2e,2f,2g,4a,4|g,2f,2e,2d,2c,8",
+    "d,4c,4d,4e,4|g,4e,4d,8|e,4g,4a,4g,2a,2|d4b,4a,4g,4",
+    "a,,4c,4d,4c,2d,2|e,4g,,4a,,4a,,2g,,2|a,,4c,4d,4c,2d,2|e,8d,8",
+    "c,4f,4e,4f,4|g,4d,4g,4z4|f,4e,4d,4e,4|f,8c,4z4",
+    "c,4d,4e,4f,4|e,4d,4c,4z4|e,4f,4g,4a,4|g,4f,4e,8",
+    "c,4c,2c,2c,4d,4|e,4g,4g,8|a,4f,4c4a,4|g,4a,4g,8",
+    "c,4d,4e,4z4|c,4d,4e,4z4|g,4e,4d,4c,4|d,4e,4d,4z4",
+    "e,4g,4g,8|e,2a,2g,2e,2c,4z4|d,2e,4c,2 a,,2c,4d,2|e,4c,4d,2a,4z2",
+    "g,4e,2e,2 f,2e,2d,2c,2|g,4e,2e,2d,4z4|e,2e,2g,2g,2 a,2a,4a,2|c4e,2e,2g,4z4",
+    "f,8g,4f,2g,2|a,4c4a,8|g,4g,4f,4g,4|a,8z8"
+]
+/*
     "c2g,2c2e2d4b,4|c4b,2a,2g,4g,4|a,4g,2f,2g,4c4|a,2c4e2d8",
     "f4d2c2f4d2c2|z2a4g2 f2f2g4|f4d2c2f4d2c2|z2c2a2g2 f2f1f1g4",
     "d4d2a2 g2a1g1 f2c2|d4d2a2 g2a1g1 f2g2|e4c4c4a,2c2|f2e2d2c2a,4"
-]
+*/
 var CLEAR_N = 3;
 var targets_indx = [];
 
@@ -79,11 +86,21 @@ document.body.addEventListener('keypress',
                 goodInput += 1;
                 document.getElementById('textarea').value += keyBuffer; 
                 if(keyBuffer.includes("'")){
-                    octState = 1;
+                    if(keyBuffer.includes("''")){
+                        octState = 3;
+                    }else{
+                        octState = 2;
+                    }
+                    
                 }else if(keyBuffer.includes(",")){
-                    octState = -1;
+                    if(keyBuffer.includes(",,")){
+                        octState = -1;
+                    }else{
+                        octState = 0;
+                    }
+                    
                 }else{
-                    octState = 0;
+                    octState = 1;
                 }
                 playToneSound(event.key);   
                 keyBuffer = next_output_abc();//positionはglobal
@@ -186,13 +203,19 @@ function calcExpr(bpm){
     }else if(bpm<100){
         return "歴戦の譜面起こしニスト";
     }else if(bpm<110){
-        return "高鳴る心臓の鼓動";
+        return "新幹線と肩を並べる速さ";
     }else if(bpm<120){
         return "音を置き去りにした";
     }else if(bpm<130){
         return "バケモノだ！";
+    }else if(bpm<140){
+        return "歌うより早く楽譜ができる";
+    }else if(bpm<150){
+        return "洗練されすぎている";
+    }else if(bpm<160){
+        return "人智を超えた記譜力";
     }else{
-        return "チーターだ！";
+        return "楽譜界の神";
     }
         
 }
